@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>For Ekkuzzz 🧸💗</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            height: 100vh; overflow: hidden; position: fixed; width: 100%;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Georgia', serif;
+        }
+        
+        /* HEART MAZHA */
+        .hearts {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        .heart {
+            position: absolute; font-size: 1.5rem; color: #e91e63;
+            animation: fall linear infinite; opacity: 0.6;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .container { position: relative; z-index: 10; text-align: center; }
+        
+        /* GIFT BOX */
+        .gift-box {
+            width: 180px; height: 180px; margin: 0 auto;
+            cursor: pointer; position: relative;
+        }
+        .box {
+            position: absolute; bottom: 0; width: 180px; height: 120px;
+            background: #e91e63; border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(233,30,99,0.4); z-index: 3;
+        }
+        .box::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 25px; height: 120px; background: #ffd700;
+        }
+        .box::after {
+            content: ''; position: absolute; top: 50%; left: 0; transform: translateY(-50%);
+            width: 180px; height: 25px; background: #ffd700;
+        }
+        .lid {
+            position: absolute; top: 30px; width: 200px; height: 50px; left: -10px;
+            background: #f06292; border-radius: 8px; z-index: 5;
+            transition: all 0.7s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .lid::after {
+            content: '🎀'; position: absolute; top: -22px; left: 50%;
+            transform: translateX(-50%); font-size: 2rem;
+        }
+        
+        /* TEDDY */
+        .teddy {
+            position: absolute; bottom: 120px; left: 50%;
+            transform: translateX(-50%) scale(0);
+            font-size: 7rem; transition: all 0.8s ease; opacity: 0; z-index: 2;
+        }
+        
+        /* SPEECH */
+        .speech {
+            position: absolute; top: -80px; left: 50%;
+            transform: translateX(-50%) scale(0);
+            background: white; padding: 15px 25px; border-radius: 20px;
+            font-size: 1.2rem; color: #e91e63; font-weight: bold;
+            transition: all 0.6s ease; opacity: 0; z-index: 6;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1); white-space: nowrap;
+        }
+        
+        /* OPEN AAYAL */
+        .gift-box.open .lid {
+            transform: translateY(-80px) rotate(-20deg); opacity: 0.5;
+        }
+        .gift-box.open .teddy {
+            transform: translateX(-50%) scale(1) translateY(-30px); opacity: 1;
+            animation: bounce 1s ease infinite;
+        }
+        .gift-box.open .speech {
+            transform: translateX(-50%) scale(1); opacity: 1; transition-delay: 0.4s;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) scale(1) translateY(-30px); }
+            50% { transform: translateX(-50%) scale(1.1) translateY(-40px); }
+        }
+        
+        .tap-text {
+            margin-top: 40px; font-size: 1.1rem; color: #c2185b; font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        
+        .music-btn {
+            position: fixed; top: 15px; right: 15px; font-size: 2rem;
+            background: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 20; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- MUSIC -->
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="music-btn" onclick="toggleMusic()">🔇</div>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div class="gift-box" onclick="openGift()">
+            <div class="speech">i luvv youhh umwahhhhh 😗💗</div>
+            <div class="teddy">🧸</div>
+            <div class="lid"></div>
+            <div class="box"></div>
+        </div>
+        <div class="tap-text">Tap the gift ma 🎁</div>
+    </div>
+    
+    <script>
+        // HEART MAZHA
+        const hearts = document.getElementById('hearts');
+        const heartEmojis = ['💗', '💖', '💕', '💓', '💞'];
+        for(let i = 0; i < 25; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = (Math.random() * 1 + 1) + 'rem';
+            hearts.appendChild(heart);
+        }
+        
+        // GIFT OPEN
+        const giftBox = document.querySelector('.gift-box');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.querySelector('.music-btn');
+        let opened = false;
+        
+        function openGift() {
+            if(!opened) {
+                giftBox.classList.add('open');
+                document.querySelector('.tap-text').style.opacity = '0';
+                bgMusic.play();
+                musicBtn.innerHTML = '🔊';
+                opened = true;
+            }
+        }
+        
+        function toggleMusic() {
+            if(bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.innerHTML = '🔊';
+            } else {
+                bgMusic.pause();
+                musicBtn.innerHTML = '🔇';
+            }
+        }
+    </script>
+</body>
+  </html>
